@@ -121,7 +121,7 @@ EOT
 }
 
 resource "system_link" "sites_enabled_nginx_server_FQDN_https_conf" {
-  count      = var.nginx_config ? 1 : 0
+  count  = var.nginx_config ? 1 : 0
   path   = "${var.nginx_configuration_home}/sites-enabled/${var.nginx_server_FQDN}_https.conf"
-  target = system_file.sites_available_nginx_server_FQDN_https_conf
+  target = system_file.sites_available_nginx_server_FQDN_https_conf[0].path
 }

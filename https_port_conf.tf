@@ -67,5 +67,5 @@ resource "system_link" "FQDN_port_conf" {
   depends_on = [system_packages_apt.nginx]
   for_each   = local.nginx_confs_kv
   path       = "${var.nginx_configuration_home}/sites-enabled/${each.value.conf.server_name}_https.conf"
-  target     = system_file.FQDN_port_conf[each.key]
+  target     = system_file.FQDN_port_conf[each.key].path
 }
