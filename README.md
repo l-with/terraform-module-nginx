@@ -54,5 +54,7 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_restart_nginx"></a> [restart\_nginx](#output\_restart\_nginx) | command to restart nginx |
 <!-- END_TF_DOCS -->
