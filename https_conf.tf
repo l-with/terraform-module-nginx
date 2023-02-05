@@ -57,7 +57,7 @@ server {
   # ssl_prefer_server_ciphers on;
   add_header Strict-Transport-Security "max-age=31536000; preload" always;
 
-%{ if var.nginx_vouch_FQDN == "" }
+%{ if var.nginx_vouch_FQDN != "" }
   ###########################################################################
   # start copy from https://github.com/vouch/vouch-proxy
   ###########################################################################
