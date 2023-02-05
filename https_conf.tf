@@ -14,16 +14,16 @@ resource "system_file" "sites_available_nginx_server_FQDN_https_conf" {
   count      = var.nginx_config ? 1 : 0
   path       = "${var.nginx_configuration_home}/sites-available/${var.nginx_server_FQDN}_https.conf"
   content    = <<EOT
-  # managed by terraform
-{% if var.nginx_https_map == "" %}
+# managed by terraform
+%{ if var.nginx_https_map == "" }
 ${var.nginx_https_map}
-{% endif %}
+%{ endif }
 
 server {
   server_tokens off;
-{% if var.nginx_GNU %}
+%{ if var.nginx_GNU }
   add_header X-Clacks-Overhead "GNU Terry Pratchett";
-{% endif %}
+%{ endif }
 
   ###########################################################################
   # start copy from/etc/nginx/sites-enabled/default managed by certbot
@@ -57,7 +57,7 @@ server {
   # ssl_prefer_server_ciphers on;
   add_header Strict-Transport-Security "max-age=31536000; preload" always;
 
-{% if var.nginx_vouch_FQDN == "" %}
+%{ if var.nginx_vouch_FQDN == "" }
   ###########################################################################
   # start copy from https://github.com/vouch/vouch-proxy
   ###########################################################################
@@ -110,7 +110,7 @@ server {
   ###########################################################################
   # end copy from https://github.com/vouch/vouch-proxy
   ###########################################################################
-{% endif %}
+%{ endif }
 
   server_name ${var.nginx_server_FQDN};
 

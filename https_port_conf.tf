@@ -5,13 +5,13 @@ resource "system_file" "FQDN_port_conf" {
   }
   path    = "${var.nginx_configuration_home}/sites-available/${each.value.server_name}_https.conf"
   content = <<EOT
-  # managed by terraform
+# managed by terraform
 
 server {
   server_tokens off;
-{% if var.nginx_GNU %}
+%{ if var.nginx_GNU }
   add_header X-Clacks-Overhead "GNU Terry Pratchett";
-{% endif %}
+%{ endif }
 
   ###########################################################################
   # start copy from/etc/nginx/sites-enabled/default managed by certbot
