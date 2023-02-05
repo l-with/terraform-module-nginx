@@ -2,6 +2,8 @@
 
 Terraform module which installs and configures ningx.
 
+This was implemented as a terraform replacement for [Ansible Role Nginx](https://github.com/l-with/ansible-role-nginx).
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
