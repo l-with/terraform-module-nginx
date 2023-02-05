@@ -58,5 +58,5 @@ variable "nginx_confs" {
     server_name           = string
     conf_in_server_stanza = string
   }))
-  // default = []
+  default = []
 }

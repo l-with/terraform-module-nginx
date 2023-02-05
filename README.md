@@ -44,7 +44,7 @@ No modules.
 | <a name="input_nginx_GNU"></a> [nginx\_GNU](#input\_nginx\_GNU) | if the [GNU Terry Pratchett](http://www.gnuterrypratchett.com) header should be inserted | `bool` | `true` | no |
 | <a name="input_nginx_config"></a> [nginx\_config](#input\_nginx\_config) | if the standard nginx configration should be done | `bool` | `true` | no |
 | <a name="input_nginx_configuration_home"></a> [nginx\_configuration\_home](#input\_nginx\_configuration\_home) | the configration home of nginx | `string` | `"/etc/nginx"` | no |
-| <a name="input_nginx_confs"></a> [nginx\_confs](#input\_nginx\_confs) | the extra configurations for nginx as list of object | <pre>list(object({<br>    port                  = number<br>    server_name           = string<br>    conf_in_server_stanza = string<br>  }))</pre> | n/a | yes |
+| <a name="input_nginx_confs"></a> [nginx\_confs](#input\_nginx\_confs) | the extra configurations for nginx as list of object | <pre>list(object({<br>    port                  = number<br>    server_name           = string<br>    conf_in_server_stanza = string<br>  }))</pre> | `[]` | no |
 | <a name="input_nginx_https_conf"></a> [nginx\_https\_conf](#input\_nginx\_https\_conf) | the nginx https configuration after `server_name` | `string` | `""` | no |
 | <a name="input_nginx_https_map"></a> [nginx\_https\_map](#input\_nginx\_https\_map) | the map stanza configuration for nginx https configuration | `string` | `""` | no |
 | <a name="input_nginx_install"></a> [nginx\_install](#input\_nginx\_install) | if nginx should be installed and enabled | `bool` | `true` | no |
