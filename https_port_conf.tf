@@ -2,18 +2,20 @@ locals {
   nginx_confs_kv = [
     for conf in var.nginx_confs : {
       port = conf.port
-      conf = {
+      conf = tomap({
         server_name           = conf.server_name
         conf_in_server_stanza = conf.conf_in_server_stanza
-      }
+      })
   }]
 }
 
 resource "system_file" "FQDN_port_conf" {
   depends_on = [system_packages_apt.nginx]
-  for_each   = local.nginx_confs_kv
-  path       = "${var.nginx_configuration_home}/sites-available/${each.value.conf.server_name}_https.conf"
-  content    = <<EOT
+  for_each = {
+    for conf in var.nginx_confs : "${conf.port}" => conf
+  }
+  path    = "${var.nginx_configuration_home}/sites-available/${each.value.server_name}_https.conf"
+  content = <<EOT
   # managed by terraform
 
 server {
