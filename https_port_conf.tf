@@ -1,14 +1,3 @@
-locals {
-  nginx_confs_kv = [
-    for conf in var.nginx_confs : {
-      port = conf.port
-      conf = tomap({
-        server_name           = conf.server_name
-        conf_in_server_stanza = conf.conf_in_server_stanza
-      })
-  }]
-}
-
 resource "system_file" "FQDN_port_conf" {
   depends_on = [system_packages_apt.nginx]
   for_each = {
@@ -30,8 +19,8 @@ server {
   # listen [::]:${each.key} ssl ipv6only=on; # managed by Certbot
   listen [::]:${each.key} ssl; # managed by Certbot
   listen ${each.key} ssl; # managed by Certbot
-  ssl_certificate /etc/letsencrypt/live/${each.value.nginx_server_FQDN}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/${each.value.nginx_server_FQDN}/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/${each.value.server_name}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/${each.value.server_name}/privkey.pem;
   # include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
   ###########################################################################
@@ -57,7 +46,7 @@ server {
   add_header Strict-Transport-Security "max-age=31536000; preload" always;
 
 
-    server_name ${each.value.nginx_server_FQDN};
+    server_name ${each.value.server_name};
 
 ${each.value.conf_in_server_stanza}
 
@@ -67,7 +56,9 @@ EOT
 
 resource "system_link" "FQDN_port_conf" {
   depends_on = [system_packages_apt.nginx]
-  for_each   = local.nginx_confs_kv
-  path       = "${var.nginx_configuration_home}/sites-enabled/${each.value.conf.server_name}_https.conf"
-  target     = system_file.FQDN_port_conf[each.key].path
+  for_each = {
+    for conf in var.nginx_confs : "${conf.port}" => conf
+  }
+  path   = "${var.nginx_configuration_home}/sites-enabled/${each.value.server_name}_https.conf"
+  target = system_file.FQDN_port_conf[each.key].path
 }
