@@ -1,6 +1,6 @@
 # terraform-module-ningx
 
-Terraform module which installs and configures ningx.
+Terraform module which installs and configures nginx by [Terraform Provider for (Operating) System](https://registry.terraform.io/providers/neuspaces/system).
 
 This is a terraform replacement for [Ansible Role Nginx](https://github.com/l-with/ansible-role-nginx).
 
